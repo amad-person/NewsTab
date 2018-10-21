@@ -25,7 +25,7 @@ Additionally, create a `.env.production` file for the production environment and
 ```
 INLINE_RUNTIME_CHUNK=false
 
-Inline scripts are blocked by most browsers (look up Content Security Policy), so this variable will help bypass this restriction by disabling scripts being added inline by react-scripts.
+Inline scripts are blocked by most browsers (see [Content Security Policy](https://developer.chrome.com/extensions/contentSecurityPolicy)), so this variable will help bypass this restriction by disabling scripts being added inline by react-scripts.
 
 # Credits
 
