@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import axios from 'axios';
-import { Card } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 
 class App extends Component {
     constructor(props) {
@@ -16,7 +16,8 @@ class App extends Component {
         axios.get('https://newsapi.org/v2/top-headlines',{
             params: {
                 language: 'en',
-                apiKey: process.env.REACT_APP_API_KEY
+                apiKey: process.env.REACT_APP_API_KEY,
+                sources: 'bbc-news,associated-press,reuters,the-new-york-times,cnn'
             }
         }).then((results) => {
             this.setState({
@@ -31,9 +32,13 @@ class App extends Component {
         const headlines = this.state.headlines.map((headline) => {
             return (
                 <Card centered href={ headline.url }>
+                    { headline.urlToImage !== null ? <Image src={ headline.urlToImage }/> : null }
                     <Card.Content>
                         <Card.Header>{ headline.title }</Card.Header>
                         <Card.Description>{ headline.content }</Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                        <a href={ headline.url }>Link</a>
                     </Card.Content>
                 </Card>
             )
