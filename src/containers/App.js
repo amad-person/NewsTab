@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
 import axios from 'axios';
-import { Card, Image } from 'semantic-ui-react';
+import {Grommet, Box, Heading, Paragraph, Anchor, Image} from 'grommet';
+import { grommet } from 'grommet/themes';
+import Newspaper from '../components/Newspaper';
 
 class App extends Component {
     constructor(props) {
@@ -9,47 +11,66 @@ class App extends Component {
 
         this.state = {
             headlines: []
-        }
+        };
     }
 
     componentDidMount() {
-        axios.get('https://newsapi.org/v2/top-headlines',{
+        axios.get("https://newsapi.org/v2/top-headlines", {
             params: {
                 language: 'en',
                 apiKey: process.env.REACT_APP_API_KEY,
-                sources: 'bbc-news,associated-press,reuters,the-new-york-times,cnn'
+                sources: 'bbc-news,reuters,the-new-york-times'
             }
-        }).then((results) => {
+        }).then((res) => {
             this.setState({
-                headlines: results.data.articles.slice(0, 20)
+                headlines: res.data.articles.slice(0, 20)
             });
         }).catch((error) => {
-            console.log('Error in fetching top headlines', error);
+            console.log(error);
         });
     }
 
     render() {
-        const headlines = this.state.headlines.map((headline) => {
+        const items = this.state.headlines.map((headline) => {
+            let img = null;
+            if (headline.urlToImage !== null) {
+                img = (
+                    <Box alignSelf="center">
+                        <Image style={{ width: "100%", height: "auto" }} fit="cover" src={ headline.urlToImage }/>
+                    </Box>
+                );
+            }
+
             return (
-                <Card centered href={ headline.url }>
-                    { headline.urlToImage !== null ? <Image src={ headline.urlToImage }/> : null }
-                    <Card.Content>
-                        <Card.Header>{ headline.title }</Card.Header>
-                        <Card.Description>{ headline.content }</Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <a href={ headline.url }>Link</a>
-                    </Card.Content>
-                </Card>
-            )
+                <Box animation={{
+                    type: "fadeIn",
+                    delay: 0,
+                    duration: 1000,
+                    size: "xsmall"
+                }}
+                     border="bottom"
+                     pad="small"
+                     direction="column"
+                     margin="xsmall"
+                     flex="shrink"
+                     responsive
+                >
+                    { img }
+                    <Heading level={3}>{ headline.title }</Heading>
+                    <Paragraph alignSelf="center" size="small">{ headline.content }</Paragraph>
+                    <Anchor href={ headline.url }>Source</Anchor>
+                </Box>
+            );
         });
 
         return (
             <div className="App">
-                <h1>News Tab</h1>
-                <Card.Group centered itemsPerRow={4}>
-                { headlines }
-                </Card.Group>
+                <Grommet theme={grommet}>
+                    <h1>News Tab</h1>
+                    <Newspaper columns={4} gap={5}>
+                        { items }
+                    </Newspaper>
+                </Grommet>
             </div>
         );
     }
