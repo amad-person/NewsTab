@@ -19,15 +19,20 @@ Grab your free API key from [News API](https://newsapi.org). Add the following l
 
 ```
 API_KEY=<YOUR API KEY HERE>
+```
 
 Additionally, create a `.env.production` file for the production environment and add the following line:
 
 ```
 INLINE_RUNTIME_CHUNK=false
+```
 
 Inline scripts are blocked by most browsers (see [Content Security Policy](https://developer.chrome.com/extensions/contentSecurityPolicy)), so this variable will help bypass this restriction by disabling scripts being added inline by react-scripts.
 
 # Credits
 
-This project uses [News API](https://newsapi.org).
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project:
+
+1. Uses [News API](https://newsapi.org).
+2. Looks great because of [Grommet](https://v2.grommet.io/).
+3. Was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
