@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import axios from 'axios';
-import {Grommet, Box, Heading, Paragraph, Anchor, Image} from 'grommet';
+import { Grommet } from 'grommet';
 import { grommet } from 'grommet/themes';
 import Newspaper from '../components/Newspaper';
+import Article from '../components/Article';
 
 class App extends Component {
     constructor(props) {
@@ -32,34 +33,8 @@ class App extends Component {
 
     render() {
         const items = this.state.headlines.map((headline) => {
-            let img = null;
-            if (headline.urlToImage !== null) {
-                img = (
-                    <Box alignSelf="center">
-                        <Image style={{ width: "100%", height: "auto" }} fit="cover" src={ headline.urlToImage }/>
-                    </Box>
-                );
-            }
-
             return (
-                <Box animation={{
-                    type: "fadeIn",
-                    delay: 0,
-                    duration: 1000,
-                    size: "xsmall"
-                }}
-                     border="bottom"
-                     pad="small"
-                     direction="column"
-                     margin="xsmall"
-                     flex="shrink"
-                     responsive
-                >
-                    { img }
-                    <Heading level={3}>{ headline.title }</Heading>
-                    <Paragraph alignSelf="center" size="small">{ headline.content }</Paragraph>
-                    <Anchor href={ headline.url }>Source</Anchor>
-                </Box>
+                <Article headline={headline}/>
             );
         });
 
