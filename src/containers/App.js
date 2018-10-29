@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import { Grommet } from 'grommet';
 import { grommet } from 'grommet/themes';
+import MediaQuery from 'react-responsive';
 import Newspaper from '../components/Newspaper';
 import Article from '../components/Article';
 
@@ -42,9 +43,14 @@ class App extends Component {
             <div className="App">
                 <Grommet theme={grommet}>
                     <h1>News Tab</h1>
-                    <Newspaper columns={4} gap={5}>
+                    <MediaQuery minDeviceWidth={1224}>
+                        <Newspaper columns={4} gap={5}>
+                            { items }
+                        </Newspaper>
+                    </MediaQuery>
+                    <MediaQuery maxDeviceWidth={1224}>
                         { items }
-                    </Newspaper>
+                    </MediaQuery>
                 </Grommet>
             </div>
         );
