@@ -12,7 +12,7 @@ const Newspaper = (props) => {
     for (let j = 0; j < props.children.length; j++) {
         const columnIndex = j % props.columns;
         columnWrapper[`column${columnIndex}`].push(
-            <div style={{ marginBottom: `${props.gap}px`}}>
+            <div style={{ marginBottom: `${props.gap}px`, display: 'flex', justifyContent: 'center'}}>
                 { props.children[j] }
             </div>
         );
