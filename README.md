@@ -2,6 +2,8 @@
 
 A Chrome extension that displays the latest headlines on your New Tab page.
 
+![Screenshot of NewsTab in action](newstab.png)
+
 ## Development
 
 Clone this repository, `cd` into it, and run `yarn install` to install the dependencies.
